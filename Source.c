@@ -25,17 +25,6 @@ int speedLimit = 127;
 int tInc = 0;
 int tickRate = 30;
 
-/*
-Declare joystick vars.
-Follows the U,D,L,R notation.
-*/
-int j1[4] = {0, 0, 0, 0};
-int j2[4] = {0, 0, 0, 0};
-int j3[4] = {0, 0, 0, 0};
-int j4[4] = {0, 0, 0, 0};
-int j5[2] = {0, 0};
-int j6[2] = {0, 0};
-
 int mathNegative(int input) {
 	if (input > 0) {
 		return input - (input * 2);
@@ -87,15 +76,28 @@ void moveDriveMotor() {
 	motor[dm_s] = evalSpeedLimit(vexRT[Ch4]);
 }
 
+bool areButtonsActive() {
+	if (vexRT[Btn8L] == 1 || vexRT[Btn8R] == 1) {
+		return true;
+	} else {
+		return false;
+	}
+}
+void rotateDriveMotor() {
+}
 void moveLeverMotor() {
-	
+
 }
 void tick() {
 	clearTimer(T1);
 	while(time1[T1] <= 1000 / tickRate) {
-		display();
-		joystickUpdateVar();
+		if (areButtonsActive() == true) {
+			rotateDriveMotor();
+		} else if (areButtonsActive() == false) {
+			moveDriveMotor();
+		} else {
 		moveDriveMotor();
+		}
 		moveLeverMotor();
 		sleep(30 - time1[T1]);
 		tInc++;
