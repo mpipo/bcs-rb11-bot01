@@ -70,10 +70,10 @@ int returnIfNegative(int input) {
 }
 
 void moveDriveMotor() {
-	motor[dm_w] = evalSpeedLimit(vexRT[Ch3]);
-	motor[dm_e] = evalSpeedLimit(vexRT[Ch3]);
 	motor[dm_n] = evalSpeedLimit(vexRT[Ch4]);
 	motor[dm_s] = evalSpeedLimit(vexRT[Ch4]);
+	motor[dm_w] = evalSpeedLimit(vexRT[Ch3]);
+	motor[dm_e] = evalSpeedLimit(vexRT[Ch3]);
 }
 
 bool areButtonsActive() {
@@ -84,6 +84,17 @@ bool areButtonsActive() {
 	}
 }
 void rotateDriveMotor() {
+	if (vexRT[Btn8L] == 1){
+		motor[dm_n] = 127;
+		motor[dm_s] = 127;
+		motor[dm_w] = 127;
+		motor[dm_e] = 127;
+	} else if (vexRT[Btn8R] == 1) {
+		motor[dm_n] = -127;
+		motor[dm_s] = -127;
+		motor[dm_w] = -127;
+		motor[dm_e] = -127;
+	}
 }
 void moveLeverMotor() {
 
